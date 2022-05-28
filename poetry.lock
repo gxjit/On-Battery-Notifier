@@ -291,14 +291,14 @@ python-versions = ">=3.7"
 name = "types-psutil"
 version = "5.8.22"
 description = "Typing stubs for psutil"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.11"
-content-hash = "bea3d6b4a0f60a016f0abdca539d3cdafbb8120161e0a20d74519037e28d3726"
+content-hash = "a850dd3d74c35b5bb8aa7990eb980f723ef805a973f5cbdfef1779193783d222"
 
 [metadata.files]
 altgraph = [
