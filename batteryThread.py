@@ -14,8 +14,8 @@ from state import (
 
 
 def reportBattery(icn: icon):
-    # _, _, power_plugged = sensors_battery()  # type: ignore
-    power_plugged = False  # Testing
+    _, _, power_plugged = sensors_battery()  # type: ignore
+    # power_plugged = False  # Testing
     if not power_plugged:
         icn.notify(data.notifiction, data.appTitle)
         Event().wait(5)
