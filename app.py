@@ -1,5 +1,6 @@
 from base64 import b64decode
 from dataclasses import dataclass
+from functools import partial
 from io import BytesIO
 from threading import Event, Timer, main_thread
 
@@ -10,14 +11,15 @@ from psutil import sensors_battery  # type: ignore
 from pystray import Icon as icon
 from pystray import Menu as menu
 from pystray import MenuItem as item
-from functools import partial
 
 from icon.icon import data
 from state import (
     getDelayMultiplier,
     getDelayStatus,
+    getInitInterval,
     getReminderInterval,
     setDelayMultiplier,
+    setInitInterval,
     setReminderInterval,
     toggleDealy,
 )
@@ -46,9 +48,9 @@ round2 = partial(round, ndigits=2)
 def askSetTime():
     try:
         t = enterbox(
-            messages.remindAfter, appTitle, str(round2(getReminderInterval() / 60))
+            messages.remindAfter, appTitle, str(round2(getInitInterval() / 60))
         )
-        setReminderInterval(float(t) * 60)
+        setInitInterval(float(t) * 60)
         if getDelayStatus():
             i = enterbox(messages.delayMultiplier, appTitle, str(getDelayMultiplier()))
             setDelayMultiplier(float(i))
@@ -63,6 +65,8 @@ def reportBattery(icn: icon):
         icn.notify(messages.notifiction, appTitle)
         Event().wait(5)
         icn.remove_notification()
+    else:
+        setReminderInterval(getInitInterval())
 
 
 def checkBattery(icn: icon):
@@ -76,7 +80,7 @@ def checkBattery(icn: icon):
                 waitFor = getReminderInterval() * getDelayMultiplier()
                 setReminderInterval(waitFor)
             else:
-                waitFor = getReminderInterval()
+                waitFor = getInitInterval()
             print(waitFor)  # unplugged check
             t = Timer(waitFor, reportBattery, [icn])
             t.start()

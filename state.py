@@ -1,4 +1,4 @@
-reminderInterval = 3
+reminderInterval = initInterval = 3
 delayMultiplier = 2
 delayEnabled = True
 
@@ -28,3 +28,13 @@ def getReminderInterval():
 def setReminderInterval(f: float):
     global reminderInterval
     reminderInterval = f
+
+
+def getInitInterval():
+    return initInterval
+
+
+def setInitInterval(f: float):
+    global initInterval
+    initInterval = f
+    setReminderInterval(f)
