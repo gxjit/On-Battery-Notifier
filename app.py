@@ -57,7 +57,7 @@ def askSetTime():
 
 
 def reportBattery(icn: icon):
-    _, _, power_plugged = sensors_battery()
+    _, _, power_plugged = sensors_battery()  # type: ignore
     # power_plugged = False  # Testing
     if not power_plugged:
         icn.notify(messages.notifiction, appTitle)
