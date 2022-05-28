@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "On Battery Notifier"
+version = "0.1.0"
+description = "Sends tray notifications when system is not plugged to an AC Source i.e. is on battery power."
+authors = ["Gurjit Singh <g.s@outlook.in>"]
+
+[tool.poetry.dependencies]
+python = ">3.10,<3.11"
+pystray = "^0.19.3"
+psutil = "^5.9.1"
+types-psutil = "^5.8.22"
+easygui = "^0.98.3"
+
+[tool.poetry.dev-dependencies]
+pyinstaller = "^5.1"
+Nuitka = "^0.8.1"
+flake8 = "^4.0.1"
+black = "^22.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
