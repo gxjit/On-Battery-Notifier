@@ -1,4 +1,4 @@
-reminderInterval = initInterval = 3
+reminderInterval = initInterval = 8 * 60
 delayMultiplier = 2
 delayEnabled = True
 
