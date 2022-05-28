@@ -1,4 +1,4 @@
-reminderInterval = 5
+reminderInterval = 3
 delayMultiplier = 2
 delayEnabled = True
 

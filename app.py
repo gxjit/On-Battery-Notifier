@@ -26,8 +26,6 @@ appTitle = "On Battery Notifier"
 
 iconImage = Image.open(BytesIO(b64decode(data)))
 
-round2 = partial(round, ndigits=2)
-
 
 @dataclass
 class Messages:
@@ -41,6 +39,8 @@ class Messages:
 
 
 messages = Messages()
+
+round2 = partial(round, ndigits=2)
 
 
 def askSetTime():
@@ -57,8 +57,8 @@ def askSetTime():
 
 
 def reportBattery(icn: icon):
-    _, _, power_plugged = sensors_battery()  # type: ignore
-    # power_plugged = False  # Testing
+    # _, _, power_plugged = sensors_battery()  # type: ignore
+    power_plugged = False  # Testing
     if not power_plugged:
         icn.notify(messages.notifiction, appTitle)
         Event().wait(5)
@@ -72,12 +72,12 @@ def checkBattery(icn: icon):
     while True:
 
         if t is None or not t.is_alive():
-            if getDelayStatus and t is not None:
+            if getDelayStatus() and (t is not None):
                 waitFor = getReminderInterval() * getDelayMultiplier()
                 setReminderInterval(waitFor)
             else:
                 waitFor = getReminderInterval()
-            # print(waitFor) # unplugged check
+            print(waitFor)  # unplugged check
             t = Timer(waitFor, reportBattery, [icn])
             t.start()
 
