@@ -36,7 +36,7 @@ def checkBattery(icn: icon):
                 setReminderInterval(waitFor)
             else:
                 waitFor = getInitInterval()
-            print(waitFor)  # unplugged check
+            # print(waitFor)
             t = Timer(waitFor, reportBattery, [icn])
             t.start()
 
