@@ -56,8 +56,9 @@ if system() == "Windows":
         "(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -"  # noqa
     )
 
+# runP(f"python -m pip install -U --user tomli")
 
-rootPath = Path.cwd().parent.resolve()
+rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
 
 chdir(rootPath)
