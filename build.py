@@ -47,11 +47,13 @@ if system() == "Windows":
         chocoDeps = f'{addNotWhich("upx")}'.strip()
         if pargs.pyinst and chocoDeps:
             runP(f"choco install {chocoDeps}")
+
         # if not which("python3"): # TODO
         #     runP("choco install python3")
 
 
 # runP(f"python -m pip install -U --user tomli")
+
 runP("python -m pip install --user poetry")
 # or pipx install poetry
 
@@ -99,15 +101,13 @@ elif pargs.nuitka:
     )
 else:
     exit(1)
-# -o "{data.appTitle}" --onefile -o yoyo.exe
-# zstandard
 
 
 if pargs.onefile and pargs.pyinst:
     cmd = cmd.replace("--onedir", "--onefile")
 
 if pargs.onefile and pargs.nuitka:
-    cmd = cmd.replace("--standalone", "--onefile")
+    cmd = cmd.replace("--standalone", f'--onefile -o "{data.appTitle}"')
 
 if zipPath.exists():
     zipPath.unlink()
@@ -122,11 +122,7 @@ if pargs.nuitka and not pargs.onefile:
     # buildPath.joinpath(f"{data.appTitle}.dist").rename(
     #     buildPath.joinpath(f"{data.appTitle}")
     # )
-
-# if pargs.nuitka and not pargs.onefile:
-#     pass
-# ren exe
-
+    # rename exe?
 
 if not distDir.exists():
     distDir.mkdir()
