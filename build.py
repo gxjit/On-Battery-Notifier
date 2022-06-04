@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from functools import partial
-from os import chdir, environ
+from os import chdir, environ, getenv, pathsep
 from pathlib import Path
 from platform import machine, system
 from shutil import make_archive, which
@@ -29,6 +29,13 @@ runP = partial(run, shell=True, check=True)
 def addNotWhich(dep: str) -> str:
     return dep if not which(dep) else ""
 
+
+def getExeFromPath(app):
+    PATH = getenv("PATH").split(pathsep)
+    return [p for p in PATH if app in p][0]
+
+
+poetryExe = getExeFromPath("poetry")
 
 # Install deps
 
@@ -63,7 +70,7 @@ rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
 
 chdir(rootPath)
-runP("$HOME/.poetry/bin/poetry install")
+runP(f"{poetryExe} install")
 
 if pargs.deps:
     exit()
@@ -93,12 +100,12 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
 if pargs.pyinst:
     cmd = (
-        f"poetry run python -m PyInstaller -y -n {data.appTitle} --distpath {buildPath} "
+        f"{poetryExe} run python -m PyInstaller -y -n {data.appTitle} --distpath {buildPath} "
         f"--workpath {tempPath} --specpath {tempPath} --clean --onedir {appEntry}"
     )
 elif pargs.nuitka:
     cmd = (
-        f"poetry run python -m nuitka -n {data.appTitle} --standalone "
+        f"{poetryExe} run python -m nuitka -n {data.appTitle} --standalone "
         f"--assume-yes-for-downloads --output-dir={buildPath} --remove-output {appEntry}"
     )
 else:
