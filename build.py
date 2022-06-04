@@ -6,7 +6,7 @@ from platform import machine, system
 from shutil import make_archive, which
 from subprocess import run
 from tempfile import TemporaryDirectory
-from ..data import data
+from lib.data import data
 
 
 def parseArgs():

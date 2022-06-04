@@ -1,5 +1,6 @@
 from base64 import b64decode
 from io import BytesIO
+from functools import partial
 
 from PIL import IcoImagePlugin  # for nuitka builds # noqa
 from PIL import Image
@@ -7,12 +8,12 @@ from pystray import Icon as icon
 from pystray import Menu as menu
 from pystray import MenuItem as item
 
-from batteryThread import checkBattery
-from config import getConfigFile, loadConfig
-from data import data
-from dialogs import askSetTime, setDelay
+from lib.batteryThread import checkBattery
+from lib.config import getConfigFile, loadConfig
+from lib.data import data
+from lib.dialogs import askSetTime, setDelay
+from lib.state import getDelayStatus
 from icon.icon import data as iconData
-from state import getDelayStatus
 
 loadConfig(getConfigFile(data.getConfigFile()))
 
@@ -36,7 +37,11 @@ trayIcon = icon(
 
 trayIcon.SETUP_THREAD_TIMEOUT = 3
 
-trayIcon.run(checkBattery)
+main = partial(trayIcon.run, checkBattery)
+
+main()
+
+# trayIcon.run(checkBattery)
 
 # --windows-icon-from-ico=your-icon.png --show-modules
 # --linux-onefile-icon=ICON_PATH nuitka -j --jobs=N os.cpu_count()
