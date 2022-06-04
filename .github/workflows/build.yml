@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build All
         run: |
-          python ${{ github.workspace }}/.github/build.py ${{ matrix.vers }}
+          python ${{ github.workspace }}/build.py ${{ matrix.vers }}
 
       - name: Upload
         uses: actions/upload-artifact@v3
