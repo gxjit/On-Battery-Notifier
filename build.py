@@ -1,11 +1,12 @@
 from argparse import ArgumentParser
 from functools import partial
-from os import environ, chdir
+from os import chdir, environ
 from pathlib import Path
 from platform import machine, system
 from shutil import make_archive, which
 from subprocess import run
 from tempfile import TemporaryDirectory
+
 from lib.data import data
 
 
