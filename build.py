@@ -63,7 +63,7 @@ rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
 
 chdir(rootPath)
-runP("poetry install")
+runP("$HOME/.poetry/bin/poetry install")
 
 if pargs.deps:
     exit()
