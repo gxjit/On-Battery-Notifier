@@ -35,8 +35,6 @@ def getExeFromPath(app):
     return [p for p in PATH if app in p][0]
 
 
-poetryExe = getExeFromPath("poetry")
-
 # Install deps
 
 if system() == "Linux":
@@ -65,6 +63,7 @@ if system() == "Windows":
     )
 
 # runP(f"python -m pip install -U --user tomli")
+poetryExe = getExeFromPath("poetry")
 
 rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
