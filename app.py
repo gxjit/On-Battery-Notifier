@@ -8,11 +8,11 @@ from pystray import Icon as icon
 from pystray import Menu as menu
 from pystray import MenuItem as item
 
-from lib.batteryThread import checkBattery
-from lib.config import getConfigFile, loadConfig
-from lib.data import data
-from lib.dialogs import askSetTime, setDelay
-from lib.state import getDelayStatus
+from src.batteryThread import checkBattery
+from src.config import getConfigFile, loadConfig
+from src.data import data
+from src.dialogs import askSetTime, setDelay
+from src.state import getDelayStatus
 from icon.icon import data as iconData
 
 loadConfig(getConfigFile(data.getConfigFile()))
