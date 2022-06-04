@@ -13,6 +13,7 @@ class Data:
     authors = ["Gurjit Singh <g.s@outlook.in>"]
     license = "MIT"
     entry = "app.py"
+    icoFile = "icon/icon.ico"
 
     notifiction = "System is not plugged to an AC Source."
     setInterval = "Set reminder interval"

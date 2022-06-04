@@ -42,8 +42,3 @@ main = partial(trayIcon.run, checkBattery)
 main()
 
 # trayIcon.run(checkBattery)
-
-# --windows-icon-from-ico=your-icon.png --show-modules
-# --linux-onefile-icon=ICON_PATH nuitka -j --jobs=N os.cpu_count()
-# --enable-plugin=tk-inter --windows-disable-console --mingw64/clang --msvc
-# --icon=..\MLNMFLCN.ICO PyInstaller
