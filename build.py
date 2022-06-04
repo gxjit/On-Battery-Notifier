@@ -53,9 +53,9 @@ if system() == "Windows":
         # if not which("python3"): # TODO
         #     runP("choco install python3")
 
-    runP(
-        "(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -"  # noqa
-    )
+    # runP(
+    #     "(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -"  # noqa
+    # )
 
 # runP(f"python -m pip install -U --user tomli")
 runP("python -m pip install --user poetry")
@@ -96,16 +96,18 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
 if pargs.pyinst:
     cmd = (
-        f'python -m poetry run python -m PyInstaller -y -n "{data.appTitle}" --distpath "{buildPath}" '
+        f"python -m poetry run python -m PyInstaller -y"
+        f'-n "{data.appTitle}" --distpath "{buildPath}" '
         f'--workpath "{tempPath}" --specpath "{tempPath}" --clean --onedir {appEntry}'
     )
 elif pargs.nuitka:
     cmd = (
-        f'python -m poetry run python -m nuitka -n "{data.appTitle}" --standalone '
-        f'--assume-yes-for-downloads --output-dir="{buildPath}" --remove-output "{appEntry}"'
+        f"python -m poetry run python -m nuitka --standalone --assume-yes-for-downloads"
+        f' --output-dir="{buildPath}" --remove-output "{appEntry}"'
     )
 else:
     exit(1)
+# -n "{data.appTitle}"
 
 
 if pargs.onefile and pargs.pyinst:
