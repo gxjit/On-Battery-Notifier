@@ -5,6 +5,15 @@ from pathlib import Path
 @dataclass
 class Data:
     appTitle = "On Battery Notifier"
+    appVersion = "0.1.1"
+    appDescription = (
+        "Sends tray notifications when system is not plugged to an AC Source"
+    )
+    " i.e. running on a battery source."
+    authors = ["Gurjit Singh <g.s@outlook.in>"]
+    license = "MIT"
+    entry = "app.py"
+
     notifiction = "System is not plugged to an AC Source."
     setInterval = "Set reminder interval"
     enableDelaying = "Enable Delaying subsequent notifications"

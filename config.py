@@ -1,11 +1,12 @@
-from json import load, dump
+from json import dump, load
 from pathlib import Path
+
 from state import (
     getDelayMultiplier,
-    getInitInterval,
     getDelayStatus,
-    setInitInterval,
+    getInitInterval,
     setDelayMultiplier,
+    setInitInterval,
     toggleDealy,
 )
 

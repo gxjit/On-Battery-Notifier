@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "On Battery Notifier"
-version = "0.1.0"
+version = "0.1.1"
 description = "Sends tray notifications when system is not plugged to an AC Source i.e. running on a battery source."
 authors = ["Gurjit Singh <g.s@outlook.in>"]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = ">3.10,<3.11"

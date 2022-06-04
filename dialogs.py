@@ -2,6 +2,7 @@ from functools import partial
 
 from easygui import enterbox, msgbox
 
+from config import saveConfigFile
 from data import data
 from state import (
     getDelayMultiplier,
@@ -11,7 +12,6 @@ from state import (
     setInitInterval,
     toggleDealy,
 )
-from config import saveConfigFile
 
 round2 = partial(round, ndigits=2)
 
