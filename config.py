@@ -10,7 +10,7 @@ from state import (
 )
 
 
-def getConfigFile(configPath: Path):
+def getConfigFile(configPath: Path) -> list:
 
     if not configPath.exists():
         if not configPath.parent.exists():
@@ -30,8 +30,8 @@ def saveConfigFile(configPath: Path):
         dump(state, cfg)
 
 
-def loadConfig(configFile: list[int]):
+def loadConfig(configFile: list):
     setInitInterval(configFile[0])
-    if getDelayStatus != configFile[1]:
+    if getDelayStatus() != configFile[1]:
         toggleDealy()
     setDelayMultiplier(configFile[2])
