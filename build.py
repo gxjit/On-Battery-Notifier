@@ -30,11 +30,6 @@ def addNotWhich(dep: str) -> str:
     return dep if not which(dep) else ""
 
 
-def getExeFromPath(app):
-    PATH = getenv("PATH").split(pathsep)
-    return [p for p in PATH if app in p][0]
-
-
 # Install deps
 
 if system() == "Linux":
@@ -46,9 +41,9 @@ if system() == "Linux":
         if aptDeps:
             runP(f"sudo apt-get install -y {aptDeps}")
 
-    runP(
-        "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -"  # noqa
-    )
+    # runP(
+    #     "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -"  # noqa
+    # )
 
 if system() == "Windows":
     if which("choco"):
@@ -63,13 +58,15 @@ if system() == "Windows":
     )
 
 # runP(f"python -m pip install -U --user tomli")
-poetryExe = getExeFromPath("poetry")
+runP("python -m pip install --user poetry")
+
+# environ["PATH"] = f'{environ["PATH"]}{pathsep}{str(Path.home() / ".poetry/bin")}'
 
 rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
 
 chdir(rootPath)
-runP(f"{poetryExe} install")
+runP("python -m poetry install")
 
 if pargs.deps:
     exit()
@@ -99,12 +96,12 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
 if pargs.pyinst:
     cmd = (
-        f"{poetryExe} run python -m PyInstaller -y -n {data.appTitle} --distpath {buildPath} "
+        f"python -m poetry run python -m PyInstaller -y -n {data.appTitle} --distpath {buildPath} "
         f"--workpath {tempPath} --specpath {tempPath} --clean --onedir {appEntry}"
     )
 elif pargs.nuitka:
     cmd = (
-        f"{poetryExe} run python -m nuitka -n {data.appTitle} --standalone "
+        f"python -m poetry run python -m nuitka -n {data.appTitle} --standalone "
         f"--assume-yes-for-downloads --output-dir={buildPath} --remove-output {appEntry}"
     )
 else:
