@@ -30,7 +30,7 @@ jobs:
       - name: Build All
         run: |
           cd ${{ github.workspace }}
-          python -m build ${{ matrix.vers }}
+          python build.py ${{ matrix.vers }}
 
       - name: Upload
         uses: actions/upload-artifact@v3
