@@ -53,6 +53,7 @@ if system() == "Windows":
 
 # runP(f"python -m pip install -U --user tomli")
 runP("python -m pip install --user poetry")
+# or pipx install poetry
 
 rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
@@ -98,7 +99,7 @@ elif pargs.nuitka:
     )
 else:
     exit(1)
-# -n "{data.appTitle}"
+# -o "{data.appTitle}" --onefile -o yoyo.exe
 # zstandard
 
 
