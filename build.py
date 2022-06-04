@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 from functools import partial
-from os import chdir, environ
+from os import environ
 from pathlib import Path
 from platform import machine, system
 from shutil import make_archive, which
@@ -41,9 +41,6 @@ if system() == "Linux":
         if aptDeps:
             runP(f"sudo apt-get install -y {aptDeps}")
 
-    # runP(
-    #     "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -"  # noqa
-    # )
 
 if system() == "Windows":
     if which("choco"):
@@ -53,19 +50,13 @@ if system() == "Windows":
         # if not which("python3"): # TODO
         #     runP("choco install python3")
 
-    # runP(
-    #     "(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -"  # noqa
-    # )
 
 # runP(f"python -m pip install -U --user tomli")
 runP("python -m pip install --user poetry")
 
-# environ["PATH"] = f'{environ["PATH"]}{pathsep}{str(Path.home() / ".poetry/bin")}'
-
 rootPath = Path.cwd().resolve()
 appEntry = rootPath.joinpath(data.entry)
 
-chdir(rootPath)
 runP("python -m poetry install")
 
 if pargs.deps:
@@ -96,7 +87,7 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
 if pargs.pyinst:
     cmd = (
-        f"python -m poetry run python -m PyInstaller -y"
+        f"python -m poetry run python -m PyInstaller -y "
         f'-n "{data.appTitle}" --distpath "{buildPath}" '
         f'--workpath "{tempPath}" --specpath "{tempPath}" --clean --onedir {appEntry}'
     )
@@ -108,6 +99,7 @@ elif pargs.nuitka:
 else:
     exit(1)
 # -n "{data.appTitle}"
+# zstandard
 
 
 if pargs.onefile and pargs.pyinst:
@@ -129,6 +121,11 @@ if pargs.nuitka and not pargs.onefile:
     buildPath.joinpath(f"{data.appTitle}.dist").rename(
         buildPath.joinpath(f"{data.appTitle}")
     )
+
+# if pargs.nuitka and not pargs.onefile:
+#     pass
+# ren exe
+
 
 if not distDir.exists():
     distDir.mkdir()
