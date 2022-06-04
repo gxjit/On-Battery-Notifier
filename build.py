@@ -91,8 +91,8 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 if pargs.pyinst:
     cmd = (
         f"python -m poetry run python -m PyInstaller -y --strip "
-        f' --distpath "{buildPath}" --workpath "{tempPath}" --specpath "{tempPath}"'
-        f'-n "{data.appTitle}" --noconsole --clean --onedir {appEntry}'
+        f'--distpath "{buildPath}" --workpath "{tempPath}" --specpath "{tempPath}"'
+        f' -n "{data.appTitle}" --noconsole --clean --onedir {appEntry}'
     )
 elif pargs.nuitka:
     cmd = (
