@@ -90,15 +90,15 @@ zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
 if pargs.pyinst:
     cmd = (
-        f"python -m poetry run python -m PyInstaller -y "
-        f'-n "{data.appTitle}" --distpath "{buildPath}" '
-        f'--workpath "{tempPath}" --specpath "{tempPath}" --clean --onedir {appEntry}'
+        f"python -m poetry run python -m PyInstaller -y --strip "
+        f' --distpath "{buildPath}" --workpath "{tempPath}" --specpath "{tempPath}"'
+        f'-n "{data.appTitle}" --noconsole --clean --onedir {appEntry}'
     )
 elif pargs.nuitka:
     cmd = (
         f"python -m poetry run python -m nuitka --standalone --assume-yes-for-downloads"
         f' --output-dir="{buildPath}" --remove-output "{appEntry}"'
-        "--enable-plugin=tk-inter --windows-disable-console"
+        " --enable-plugin=tk-inter --windows-disable-console"
     )
 else:
     exit(1)
@@ -107,8 +107,10 @@ else:
 if pargs.onefile and pargs.pyinst:
     cmd = cmd.replace("--onedir", "--onefile")
 
+sfx = ".exe" if system() == "Windows" else ""
+
 if pargs.onefile and pargs.nuitka:
-    cmd = cmd.replace("--standalone", f'--onefile -o "{data.appTitle}"')
+    cmd = cmd.replace("--standalone", f'--onefile -o "{data.appTitle}{sfx}"')
 
 if zipPath.exists():
     zipPath.unlink()
@@ -120,9 +122,6 @@ runP(cmd)
 if pargs.nuitka and not pargs.onefile:
     nPath = [d for d in buildPath.iterdir() if str(d).endswith(".dist")][0]
     nPath.rename(buildPath.joinpath(f"{data.appTitle}"))
-    # buildPath.joinpath(f"{data.appTitle}.dist").rename(
-    #     buildPath.joinpath(f"{data.appTitle}")
-    # )
     # rename exe?
 
 if not distDir.exists():
