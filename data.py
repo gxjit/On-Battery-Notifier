@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass
@@ -11,6 +12,9 @@ class Data:
     delayMultiplier = "Delay subsequent notifications by previous inteval * x."
     invalid = "Invalid Input."
     exit = "Exit"
+
+    def getConfigFile(self):
+        return Path.home() / ".config" / f"{self.appTitle}.json"
 
 
 data = Data()

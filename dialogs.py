@@ -9,7 +9,9 @@ from state import (
     getInitInterval,
     setDelayMultiplier,
     setInitInterval,
+    toggleDealy,
 )
+from config import saveConfigFile
 
 round2 = partial(round, ndigits=2)
 
@@ -23,5 +25,11 @@ def askSetTime():
         if getDelayStatus():
             i = enterbox(data.delayMultiplier, data.appTitle, str(getDelayMultiplier()))
             setDelayMultiplier(float(i))
+        saveConfigFile(data.getConfigFile())
     except (ValueError, TypeError):
         msgbox(data.invalid, data.appTitle)
+
+
+def setDelay():
+    toggleDealy()
+    saveConfigFile(data.getConfigFile())

@@ -10,12 +10,13 @@ from pystray import MenuItem as item
 from icon.icon import data as iconData
 from state import (
     getDelayStatus,
-    toggleDealy,
 )
 from data import data
-from dialogs import askSetTime
+from dialogs import askSetTime, setDelay
 from batteryThread import checkBattery
+from config import getConfigFile, loadConfig
 
+loadConfig(getConfigFile(data.getConfigFile()))
 
 iconImage = Image.open(BytesIO(b64decode(iconData)))
 
@@ -29,7 +30,7 @@ trayIcon = icon(
         item(data.setInterval, askSetTime),
         item(
             data.enableDelaying,
-            lambda i: toggleDealy(),
+            lambda i: setDelay(),
             checked=lambda i: getDelayStatus(),
         ),
     ),
