@@ -116,11 +116,11 @@ if zipPath.exists():
 runP(cmd)
 
 if pargs.nuitka and not pargs.onefile:
-    # nPath, *_ = [d for d in buildPath.iterdir() if str(d).endswith(".dist")]
-    # nPath.rename
-    buildPath.joinpath(f"{data.appTitle}.dist").rename(
-        buildPath.joinpath(f"{data.appTitle}")
-    )
+    nPath = [d for d in buildPath.iterdir() if str(d).endswith(".dist")][0]
+    nPath.rename(buildPath.joinpath(f"{data.appTitle}"))
+    # buildPath.joinpath(f"{data.appTitle}.dist").rename(
+    #     buildPath.joinpath(f"{data.appTitle}")
+    # )
 
 # if pargs.nuitka and not pargs.onefile:
 #     pass
