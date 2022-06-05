@@ -34,6 +34,10 @@ def addNotWhich(dep, altCheck=None):
         return dep if not which(dep) else ""
 
 
+def take(n, itr):
+    return list(islice(itr, n))
+
+
 def head(itr):
     return list(islice(itr, 1))[0]
 
@@ -136,6 +140,10 @@ if zipPath.exists():
 # Build
 
 runP(cmd)
+
+if len(take(1, buildPath.iterdir())) < 1:
+    exit(1)
+
 
 sfx = ".exe" if system() == "Windows" else ""
 
