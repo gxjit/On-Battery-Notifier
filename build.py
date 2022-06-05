@@ -136,16 +136,16 @@ sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.nuitka and not pargs.onefile:
     nPath = take1(buildPath.glob("*.dist"))
-    # nPath = [d for d in buildPath.iterdir() if str(d).endswith(".dist")][0]
     nPath = nPath.rename(buildPath / f"{data.appTitle}")
 
     exePath = take1(nPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
     exePath.rename(nPath / f"{data.appTitle}{sfx}")
-    # [d for d in buildPath.iterdir() if str(d).startswith(".dist")][0]
-    # rename exe?
 
 if pargs.nuitka and pargs.onefile:
-    exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+    try:
+        exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+    except IndexError:
+        exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}.bin'))
     exePath.rename(buildPath / f"{data.appTitle}{sfx}")
 
 
