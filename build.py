@@ -133,8 +133,8 @@ sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.onefile and pargs.nuitka:
     cmd = cmd.replace("--standalone", "--onefile")
-    cmd = f'{cmd} -o "{data.appTitle}{sfx}"'
-    # exePath = buildPath / f"{data.appTitle}{sfx}"
+    exePath = buildPath / f"{data.appTitle}{sfx}"
+    cmd = f'{cmd} -o "{exePath}"'
     # cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
 
 if zipPath.exists():
@@ -145,6 +145,7 @@ if zipPath.exists():
 runP(cmd)
 
 if len(take(1, buildPath.iterdir())) < 1:
+    print("Build directory is empty.")
     exit(1)
 
 
