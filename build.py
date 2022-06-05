@@ -125,7 +125,7 @@ sfx = ".exe" if system() == "Windows" else ""
 if pargs.onefile and pargs.nuitka:
     cmd = cmd.replace("--standalone", "--onefile")
     exePath = buildPath / f"{data.appTitle}{sfx}"
-    cmd = cmd.replace(f'--output-dir="{buildPath}"', f'--o "{exePath}"')
+    cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
 
 if zipPath.exists():
     zipPath.unlink()
