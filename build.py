@@ -135,6 +135,7 @@ if pargs.onefile and pargs.nuitka:
     cmd = cmd.replace("--standalone", "--onefile")
     exePath = buildPath / f"{data.appTitle}{sfx}"
     cmd = f'{cmd} -o "{exePath}"'
+    # .AppImage ext?
     # cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
 
 if zipPath.exists():
