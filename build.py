@@ -123,7 +123,7 @@ if system() == "Windows" and pargs.nuitka:
     cmd = f'{cmd} --windows-icon-from-ico="{icnPath}"'
 
 if system() == "Linux" and pargs.nuitka:
-    cmd = f'{cmd} --linux-onefile-icon="{icnPath.with_suffix("png")}"'
+    cmd = f'{cmd} --linux-onefile-icon="{icnPath.with_suffix(".png")}"'
 
 
 if pargs.onefile and pargs.pyinst:
