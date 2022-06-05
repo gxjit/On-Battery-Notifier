@@ -35,10 +35,11 @@ trayIcon = icon(
     ),
 )
 
-trayIcon.SETUP_THREAD_TIMEOUT = 3
+trayIcon.SETUP_THREAD_TIMEOUT = 4
 
 main = partial(trayIcon.run, checkBattery)
 
-main()
+if __name__ == "__main__":
+    main()
 
 # trayIcon.run(checkBattery)

@@ -153,9 +153,8 @@ make_archive(str(zipPath.with_suffix("")), "zip", buildPath)
 td.cleanup()
 
 
-# --windows-icon-from-ico=your-icon.png --show-modules
+# --windows-icon-from-ico=your-icon.png
 # --linux-onefile-icon=ICON_PATH nuitka -j --jobs=N os.cpu_count()
-# --enable-plugin=tk-inter --windows-disable-console --mingw64/clang --msvc
 # --icon=..\MLNMFLCN.ICO PyInstaller
 
 # build log
