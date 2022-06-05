@@ -34,12 +34,8 @@ def addNotWhich(dep, altCheck=None):
         return dep if not which(dep) else ""
 
 
-def take(n, itr):
-    return list(islice(itr, n))
-
-
-def take1(itr):
-    return take(1, itr)[0]
+def head(itr):
+    return list(islice(itr, 1))[0]
 
 
 # Install deps
@@ -135,17 +131,17 @@ runP(cmd)
 sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.nuitka and not pargs.onefile:
-    nPath = take1(buildPath.glob("*.dist"))
+    nPath = head(buildPath.glob("*.dist"))
     nPath = nPath.rename(buildPath / f"{data.appTitle}")
 
-    exePath = take1(nPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+    exePath = head(nPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
     exePath.rename(nPath / f"{data.appTitle}{sfx}")
 
 if pargs.nuitka and pargs.onefile:
     try:
-        exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+        exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
     except IndexError:
-        exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}.bin'))
+        exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}.bin'))
     exePath.rename(buildPath / f"{data.appTitle}{sfx}")
 
 
