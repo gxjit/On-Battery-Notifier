@@ -129,8 +129,11 @@ if system() == "Linux" and pargs.nuitka:
 if pargs.onefile and pargs.pyinst:
     cmd = cmd.replace("--onedir", "--onefile")
 
+sfx = ".exe" if system() == "Windows" else ""
+
 if pargs.onefile and pargs.nuitka:
     cmd = cmd.replace("--standalone", "--onefile")
+    cmd = f'{cmd} -o "{data.appTitle}{sfx}"'
     # exePath = buildPath / f"{data.appTitle}{sfx}"
     # cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
 
@@ -144,8 +147,6 @@ runP(cmd)
 if len(take(1, buildPath.iterdir())) < 1:
     exit(1)
 
-
-sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.nuitka and not pargs.onefile:
     nPath = head(buildPath.glob("*.dist"))
