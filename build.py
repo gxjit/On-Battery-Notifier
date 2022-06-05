@@ -6,6 +6,7 @@ from platform import machine, system
 from shutil import make_archive, which
 from subprocess import run
 from tempfile import TemporaryDirectory
+from itertools import islice
 
 from src.data import data
 
@@ -26,15 +27,28 @@ pargs = parseArgs()
 runP = partial(run, shell=True, check=True)
 
 
-def addNotWhich(dep: str) -> str:
-    return dep if not which(dep) else ""
+def addNotWhich(dep, altCheck=None):
+    if altCheck:
+        return dep if not which(altCheck) else ""
+    else:
+        return dep if not which(dep) else ""
+
+
+def take(n, itr):
+    return list(islice(itr, n))
+
+
+def take1(itr):
+    return take(1, itr)[0]
 
 
 # Install deps
 
 if system() == "Linux":
     if which("apt-get"):
-        aptDeps = f'{addNotWhich("python3")} {addNotWhich("python-is-python3")}'
+        aptDeps = (
+            f'{addNotWhich("python3")} {addNotWhich("python-is-python3", "python")}'
+        )
         if pargs.pyinst:
             aptDeps = f'{aptDeps} {addNotWhich("upx")}'
         aptDeps = aptDeps.strip()
@@ -44,21 +58,18 @@ if system() == "Linux":
 
 if system() == "Windows":
     if which("choco"):
-        chocoDeps = f'{addNotWhich("upx")}'.strip()
-        if pargs.pyinst and chocoDeps:
+        chocoDeps = f'{addNotWhich("python3", "python")}'
+        if pargs.pyinst:
+            chocoDeps = f'{chocoDeps} {addNotWhich("upx")}'
+        chocoDeps = chocoDeps.strip()
+        if chocoDeps:
             runP(f"choco install {chocoDeps}")
-
-        # if not which("python3"): # TODO
-        #     runP("choco install python3")
 
 
 # runP(f"python -m pip install -U --user tomli")
 
 runP("python -m pip install --user poetry")
 # or pipx install poetry
-
-rootPath = Path.cwd().resolve()
-appEntry = rootPath.joinpath(data.entry)
 
 runP("python -m poetry install")
 
@@ -67,6 +78,8 @@ if pargs.deps:
 
 # Build Setup
 
+rootPath = Path.cwd().resolve()
+appEntry = rootPath.joinpath(data.entry)
 td = TemporaryDirectory(ignore_cleanup_errors=True)
 tempRoot = Path(td.name)
 buildPath = tempRoot.joinpath("build")
@@ -110,7 +123,9 @@ if pargs.onefile and pargs.pyinst:
 sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.onefile and pargs.nuitka:
-    cmd = cmd.replace("--standalone", f'--onefile -o "{data.appTitle}{sfx}"')
+    cmd = cmd.replace("--standalone", "--onefile")
+    exePath = buildPath / f"{data.appTitle}{sfx}"
+    cmd = cmd.replace(f'--output-dir="{buildPath}"', f'--o "{exePath}"')
 
 if zipPath.exists():
     zipPath.unlink()
@@ -120,9 +135,19 @@ if zipPath.exists():
 runP(cmd)
 
 if pargs.nuitka and not pargs.onefile:
-    nPath = [d for d in buildPath.iterdir() if str(d).endswith(".dist")][0]
-    nPath.rename(buildPath.joinpath(f"{data.appTitle}"))
+    nPath = take1(buildPath.glob("*.dist"))
+    # nPath = [d for d in buildPath.iterdir() if str(d).endswith(".dist")][0]
+    nPath = nPath.rename(buildPath / f"{data.appTitle}")
+
+    exePath = take1(nPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+    exePath.rename(nPath / f"{data.appTitle}{sfx}")
+    # [d for d in buildPath.iterdir() if str(d).startswith(".dist")][0]
     # rename exe?
+
+if pargs.nuitka and pargs.onefile:
+    exePath = take1(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+    exePath.rename(buildPath / f"{data.appTitle}{sfx}")
+
 
 if not distDir.exists():
     distDir.mkdir()
