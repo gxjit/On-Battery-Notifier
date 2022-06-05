@@ -97,17 +97,21 @@ if pargs.onefile:
 
 zipPath = distDir.joinpath(f"{baseFileName}_{platformStr}").with_suffix(".zip")
 
+icnPath = rootPath / data.icoFile
+
 if pargs.pyinst:
     cmd = (
         f"python -m poetry run python -m PyInstaller -y --strip "
         f'--distpath "{buildPath}" --workpath "{tempPath}" --specpath "{tempPath}"'
         f' -n "{data.appTitle}" --noconsole --clean --onedir {appEntry}'
+        f' --icon="{icnPath}"'
     )
 elif pargs.nuitka:
     cmd = (
         f"python -m poetry run python -m nuitka --standalone --assume-yes-for-downloads"
         f' --output-dir="{buildPath}" --remove-output "{appEntry}"'
-        " --enable-plugin=tk-inter --windows-disable-console"
+        " --enable-plugin=tk-inter --windows-disable-console "
+        f'--windows-icon-from-ico="{icnPath}" --linux-onefile-icon="{icnPath}"'
     )
 else:
     exit(1)
@@ -152,10 +156,6 @@ make_archive(str(zipPath.with_suffix("")), "zip", buildPath)
 
 td.cleanup()
 
-
-# --windows-icon-from-ico=your-icon.png
-# --linux-onefile-icon=ICON_PATH nuitka -j --jobs=N os.cpu_count()
-# --icon=..\MLNMFLCN.ICO PyInstaller
 
 # build log
 # 7zip compression?
