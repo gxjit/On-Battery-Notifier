@@ -120,12 +120,10 @@ else:
 if pargs.onefile and pargs.pyinst:
     cmd = cmd.replace("--onedir", "--onefile")
 
-sfx = ".exe" if system() == "Windows" else ""
-
 if pargs.onefile and pargs.nuitka:
     cmd = cmd.replace("--standalone", "--onefile")
-    exePath = buildPath / f"{data.appTitle}{sfx}"
-    cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
+    # exePath = buildPath / f"{data.appTitle}{sfx}"
+    # cmd = cmd.replace(f'--output-dir="{buildPath}"', f'-o "{exePath}"')
 
 if zipPath.exists():
     zipPath.unlink()
@@ -133,6 +131,8 @@ if zipPath.exists():
 # Build
 
 runP(cmd)
+
+sfx = ".exe" if system() == "Windows" else ""
 
 if pargs.nuitka and not pargs.onefile:
     nPath = take1(buildPath.glob("*.dist"))
