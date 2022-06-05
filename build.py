@@ -111,10 +111,15 @@ elif pargs.nuitka:
         f"python -m poetry run python -m nuitka --standalone --assume-yes-for-downloads"
         f' --output-dir="{buildPath}" --remove-output "{appEntry}"'
         " --enable-plugin=tk-inter --windows-disable-console "
-        f'--windows-icon-from-ico="{icnPath}" --linux-onefile-icon="{icnPath}"'
     )
 else:
     exit(1)
+
+if system() == "Windows" and pargs.nuitka:
+    cmd = f'{cmd} --windows-icon-from-ico="{icnPath}"'
+
+if system() == "Linux" and pargs.nuitka:
+    cmd = f'{cmd} --linux-onefile-icon="{icnPath}"'
 
 
 if pargs.onefile and pargs.pyinst:
