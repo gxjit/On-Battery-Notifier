@@ -155,12 +155,12 @@ if pargs.nuitka and not pargs.onefile:
     exePath = head(nPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
     exePath.rename(nPath / f"{data.appTitle}{sfx}")
 
-if pargs.nuitka and pargs.onefile:
-    try:
-        exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
-    except IndexError:
-        exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}.bin'))
-    exePath.rename(buildPath / f"{data.appTitle}{sfx}")
+# if pargs.nuitka and pargs.onefile:
+#     try:
+#         exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}{sfx}'))
+#     except IndexError:
+#         exePath = head(buildPath.glob(f'{data.entry.replace(".py", "")}.bin'))
+#     exePath.rename(buildPath / f"{data.appTitle}{sfx}")
 
 
 if not distDir.exists():
