@@ -308,7 +308,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "types-psutil"
-version = "5.8.22"
+version = "5.8.23"
 description = "Typing stubs for psutil"
 category = "dev"
 optional = false
@@ -331,7 +331,7 @@ cffi = ["cffi (>=1.11)"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10,<3.11"
-content-hash = "0a3c490c1291d3f1f95e27b004eed2bc586d8e2395ef70dbcb4530236c5b7fdc"
+content-hash = "ff34c41e1fa1f6e78fd5c19e57d84fd82c2d4504baac48c0e053ba5fb1fd3b87"
 
 [metadata.files]
 altgraph = [
@@ -612,8 +612,8 @@ tomli = [
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 types-psutil = [
-    {file = "types-psutil-5.8.22.tar.gz", hash = "sha256:7556f37aaa2982d02b1accf45fe9d4d25e56473b58de16086101dd818ccbcf3d"},
-    {file = "types_psutil-5.8.22-py3-none-any.whl", hash = "sha256:aa98bb5e1b702a70902172e69083a8e00802b6a7d7f03e2c7ba736b92919b8c6"},
+    {file = "types-psutil-5.8.23.tar.gz", hash = "sha256:3e565c42846e811f1fda5d487ec5a08fe0c22ef51a232369dbfad67ceaaff6dd"},
+    {file = "types_psutil-5.8.23-py3-none-any.whl", hash = "sha256:e4beaf154a59f9a750ba9716dbbdb2efec43aaf40a15b6af25443ae57a590941"},
 ]
 zstandard = [
     {file = "zstandard-0.17.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a1991cdf2e81e643b53fb8d272931d2bdf5f4e70d56a457e1ef95bde147ae627"},
