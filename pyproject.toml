@@ -16,7 +16,7 @@ pyinstaller = "^5.1"
 Nuitka = "^0.9.5"
 flake8 = "^4.0.1"
 black = "^22.3.0"
-types-psutil = "^5.8.22"
+types-psutil = "^5.9.3"
 zstandard = "^0.17.0"
 
 [build-system]
