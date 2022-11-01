@@ -12,7 +12,7 @@ psutil = "^5.9.1"
 easygui = "^0.98.3"
 
 [tool.poetry.dev-dependencies]
-pyinstaller = "^5.1"
+pyinstaller = "^5.6"
 Nuitka = "^0.9.5"
 flake8 = "^4.0.1"
 black = "^22.3.0"
